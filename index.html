@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>For You ❤️</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #100d15;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    main {
+      padding: 28px;
+      max-width: 380px;
+    }
+
+    .heart {
+      color: #ff5c93;
+      font-size: 65px;
+      animation: beat 1s infinite alternate;
+    }
+
+    @keyframes beat {
+      to {
+        transform: scale(1.18);
+      }
+    }
+
+    h1 {
+      color: #ff8bb3;
+    }
+
+    p {
+      line-height: 1.7;
+      color: #e5dce7;
+    }
+
+    button {
+      background: #ff5c93;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      padding: 14px 22px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #message {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <div class="heart">♥</div>
+
+    <h1>Hey, you ❤️</h1>
+
+    <p>I made something special just for you.</p>
+
+    <p>Because you mean more to me than words can explain.</p>
+
+    <button onclick="showMessage()">
+      Open your surprise 💌
+    </button>
+
+    <p id="message">
+      No matter how far apart we are, you are
+      someone truly special to me. ❤️
+      Thank you for being you.
+    </p>
+  </main>
+
+  <script>
+    function showMessage() {
+      document.getElementById("message").style.display = "block";
+    }
+  </script>
+</body>
+</html>
