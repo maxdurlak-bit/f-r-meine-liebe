@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#100b12">
+<title>Eine kleine Welt für dich ♡</title>
+
+<style>
+:root {
+  --bg: #100b12;
+  --panel: #1d1420;
+  --panel2: #28192a;
+  --pink: #ff76ad;
+  --pink2: #ffb4d1;
+  --white: #fff5fa;
+  --muted: #cbb9c9;
+  --border: #56324c;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--white);
+  font-family: Georgia, "Times New Roman", serif;
+  text-align: center;
+  overflow-x: hidden;
+}
+button, input { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+a { color: var(--pink2); }
+p {
+  color: #e4d6e3;
+  line-height: 1.85;
+}
+h1 {
+  font-size: clamp(43px, 10vw, 76px);
+  line-height: 1.08;
+  margin: 22px 0;
+}
+h2 {
+  color: var(--pink);
+  font-size: clamp(28px, 6vw, 40px);
+}
+h3 { color: var(--pink2); }
+section {
+  padding: 75px 20px;
+  scroll-margin-top: 65px;
+}
+.wrap { max-width: 900px; margin: auto; }
+.eyebrow {
+  color: var(--pink);
+  font: 11px Arial, sans-serif;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+.hero {
+  min-height: 95vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 35px 20px;
+  background:
+    radial-gradient(ellipse at 50% 20%, #48223e 0%, transparent 60%),
+    var(--bg);
+}
+.hero p { max-width: 490px; }
+.heart {
+  color: var(--pink);
+  font-size: 65px;
+  animation: heartbeat 1.2s infinite alternate;
+  filter: drop-shadow(0 0 15px #ff76ad66);
+}
+@keyframes heartbeat {
+  to { transform: scale(1.13); }
+}
+.btn {
+  display: inline-block;
+  border: 1px solid var(--pink);
+  border-radius: 30px;
+  padding: 13px 21px;
+  margin: 6px;
+  background: var(--pink);
+  color: #27111f;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform .2s, background .2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn.secondary {
+  color: var(--pink2);
+  background: transparent;
+}
+.btn:focus-visible, a:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 4px;
+}
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 10px 4px;
+  background: #100b12f2;
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+}
+nav a {
+  display: inline-block;
+  padding: 9px 7px;
+  font: 11px Arial, sans-serif;
+  color: var(--pink2);
+  text-decoration: none;
+}
+nav a:hover { color: white; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+.card {
+  padding: 23px 17px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: linear-gradient(145deg, var(--panel2), var(--panel));
+}
+.card .emoji { font-size: 36px; }
+.card p { font-size: 14px; }
+.hidden { display: none !important; }
+.message {
+  max-width: 650px;
+  margin: 25px auto;
+  padding: 25px;
+  border: 1px solid #a95683;
+  border-radius: 18px;
+  background: #26172a;
+  animation: fadein .35s ease;
+}
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.soft { background: #171019; }
+.photos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 700px;
+  margin: 30px auto;
+}
+.polaroid {
+  padding: 10px 10px 20px;
+  background: #f8edf3;
+  color: #33202e;
+  border-radius: 3px;
+  transform: rotate(-2deg);
+  box-shadow: 0 8px 25px #0005;
+}
+.polaroid:nth-child(2) { transform: rotate(2deg); }
+.polaroid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  background: #d9c9d5;
+}
+.polaroid p {
+  margin: 13px 0 0;
+  color: #392438;
+  font-size: 14px;
+}
+.photo-note {
+  font-size: 12px !important;
+  color: #8a7184 !important;
+}
+.letter-content { white-space: pre-line; }
+.counter {
+  font-size: 28px;
+  color: var(--pink2);
+  margin: 18px;
+}
+.memory-list {
+  padding: 0;
+  list-style: none;
+}
+.memory-list li {
+  padding: 14px;
+  margin: 10px 0;
+  border-radius: 12px;
+  background: #241728;
+  border: 1px solid #442b44;
+  color: #f4dce9;
+}
+#secretWord {
+  max-width: 340px;
+  margin: 12px auto;
+}
+input {
+  width: 100%;
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #120d16;
+  color: white;
+}
+input:focus { outline: 2px solid var(--pink); }
+footer {
+  padding: 40px 20px;
+  color: var(--muted);
+  font-size: 13px;
+}
+#floatingHearts {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 20;
+}
+.floating-heart {
+  position: absolute;
+  bottom: -40px;
+  animation: rise 4s ease-in forwards;
+}
+@keyframes rise {
+  to {
+    transform: translateY(-110vh) rotate(25deg);
+    opacity: 0;
+  }
+}
+@media(max-width: 480px) {
+  section { padding: 55px 16px; }
+  nav a { padding: 8px 4px; font-size: 10px; }
+  .photos { gap: 10px; }
+  .polaroid { padding: 6px 6px 14px; }
+  .polaroid p { font-size: 12px; }
+}
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div id="floatingHearts" aria-hidden="true"></div>
+
+<nav aria-label="Seitennavigation">
+  <a href="#start">START</a>
+  <a href="#briefe">BRIEFE</a>
+  <a href="#fotos">WIR</a>
+  <a href="#erinnerungen">ERINNERUNGEN</a>
+  <a href="#spiel">SPIEL</a>
+  <a href="#ende">♡</a>
+</nav>
+
+<header class="hero" id="start">
+  <div class="eyebrow">Eine kleine Überraschung für dich</div>
+  <div class="heart">♥</div>
+  <h1>Hey, du.<br>Ja, genau du. ♡</h1>
+  <p>
+    Ich hätte dir einfach eine Nachricht schreiben können.
+    Aber du bist mir wichtig, und ich wollte dir etwas
+    schenken, das ein bisschen besonderer ist.
+  </p>
+  <p>
+    Also habe ich eine kleine Welt gebaut.
+    Nur für dich. Und du darfst alles entdecken.
+  </p>
+  <button class="btn" onclick="openWelcome()">
+    Deine Überraschung öffnen 💌
+  </button>
+  <div id="welcome" class="message hidden" aria-live="polite">
+    <h2>Du bist wirklich hier! ♡</h2>
+    <p>
+      Nimm dir Zeit. Du musst nicht alles auf einmal lesen.
+      Hinter einigen Knöpfen warten kleine Nachrichten,
+      Gedanken und Erinnerungen auf dich.
+    </p>
+    <p>Und ja, ich habe mir dabei Mühe gegeben. Sehr sogar. ❤️</p>
+    <button class="btn" onclick="goTo('briefe')">
+      Na gut, zeig mal! →
+    </button>
+  </div>
+  <p style="font-size:12px">Mit ganz viel Liebe gemacht ♡</p>
+</header>
+
+<section id="briefe">
+  <div class="wrap">
+    <div class="eyebrow">Für verschiedene Tage</div>
+    <h2>Öffne einen Brief 💌</h2>
+    <p>
+      Such dir aus, was du gerade brauchst.
+      Jeder Brief ist ein kleiner Reminder von mir.
+    </p>
+
+    <div class="grid">
+      <article class="card">
+        <div class="emoji">🌍</div>
+        <h3>Wenn du mich vermisst</h3>
+        <p>Für die Tage, an denen die Entfernung nervt.</p>
+        <button class="btn secondary" onclick="showLetter('miss')">Brief öffnen</button>
+      </article>
+      <article class="card">
+        <div class="emoji">🌧️</div>
+        <h3>Wenn dein Tag mies war</h3>
+        <p>Du musst nicht immer stark sein.</p>
+        <button class="btn secondary" onclick="showLetter('sad')">Brief öffnen</button>
+      </article>
+      <article class="card">
+        <div class="emoji">🌙</div>
+        <h3>Wenn du nicht schlafen kannst</h3>
+        <p>Ein ruhiger Gedanke für die Nacht.</p>
+        <button class="btn secondary" onclick="showLetter('night')">Brief öffnen</button>
+      </article>
+      <article class="card">
+        <div class="emoji">🧸</div>
+        <h3>Wenn du lächeln musst</h3>
+        <p>Oder wenn ich dich erst zum Lachen bringen muss.</p>
+        <button class="btn secondary" onclick="showLetter('smile')">Brief öffnen</button>
+      </article>
+      <article class="card">
+        <div class="emoji">🫶</div>
+        <h3>Wenn du an dir zweifelst</h3>
+        <p>Ein kleiner Reminder, der wichtig ist.</p>
+        <button class="btn secondary" onclick="showLetter('worth')">Brief öffnen</button>
+      </article>
+      <article class="card">
+        <div class="emoji">❤️</div>
+        <h3>Wenn du wissen willst, was du mir bedeutest</h3>
+        <p>Ein paar ehrliche Worte von mir.</p>
+        <button class="btn secondary" onclick="showLetter('love')">Brief öffnen</button>
+      </article>
+      <article class="card">
+        <div class="emoji">😂</div>
+        <h3>Wenn du mich nervig findest</h3>
+        <p>Eine sehr wichtige wissenschaftliche Untersuchung.</p>
+        <button class="btn secondary" onclick="showLetter('funny')">Brief öffnen</button>
+      </article>
+      <article class="card">
+        <div class="emoji">✨</div>
+        <h3>Einfach so</h3>
+        <p>Du brauchst keinen Grund für eine liebe Nachricht.</p>
+        <button class="btn secondary" onclick="showLetter('random')">Brief öffnen</button>
+      </article>
+    </div>
+
+    <div id="letterBox" class="message hidden" aria-live="polite">
+      <h2 id="letterTitle"></h2>
+      <p class="letter-content" id="letterText"></p>
+      <button class="btn secondary" onclick="hideLetter()">Brief schließen ♡</button>
+    </div>
+  </div>
+</section>
+
+<section id="fotos" class="soft">
+  <div class="wrap">
+    <div class="eyebrow">Zwei Menschen, zwei Orte</div>
+    <h2>Unser kleiner gemeinsamer Ort ♡</h2>
+    <p>
+      Zwischen uns liegen Kilometer, Länder und manchmal
+      auch ziemlich unterschiedliche Uhrzeiten.
+      Aber Entfernung ist nicht das Einzige, was unsere
+      Geschichte ausmacht.
+    </p>
+
+    <div class="photos">
+      <div class="polaroid">
+        <img src="1000008096.jpg"
+             alt="Ein persönliches Foto von ihr"
+             loading="lazy">
+        <p>Ein Mensch, der mir wichtig ist ♡</p>
+      </div>
+      <div class="polaroid">
+        <img src="1000008441.jpg"
+             alt="Ein persönliches Foto von mir"
+             loading="lazy">
+        <p>Und der Typ, der diese Seite gebaut hat :)</p>
+      </div>
+    </div>
+
+    <p class="photo-note">
+      Unsere Fotos, unser kleiner Platz im Internet.
+    </p>
+
+    <div class="message">
+      <h3>Auch wenn wir nicht am selben Ort sind 🌍</h3>
+      <p>
+        Ich kann nicht einfach spontan bei dir vorbeikommen.
+        Ich kann dir nicht jeden Tag persönlich zeigen,
+        was ich dir sagen möchte.
+      </p>
+      <p>
+        Aber ich kann zuhören, Zeit mit dir verbringen,
+        mit dir lachen und mir Gedanken darüber machen,
+        wie ich dir eine Freude bereiten kann.
+      </p>
+      <p>
+        Und genau deshalb gibt es diese Seite.
+        Nicht, weil sie perfekt sein muss, sondern weil
+        ich wollte, dass du etwas hast, das ich extra
+        für dich gemacht habe.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="erinnerungen">
+  <div class="wrap">
+    <div class="eyebrow">Kleine Dinge, große Bedeutung</div>
+    <h2>Was ich an uns mag ✨</h2>
+    <p>
+      Nicht jede Erinnerung muss riesig sein.
+      Manchmal sind es die kleinen Sachen, die bleiben.
+    </p>
+
+    <ul class="memory-list">
+      <li>♡ Die Gespräche, bei denen aus fünf Minuten plötzlich Stunden werden.</li>
+      <li>♡ Die Insider, die für andere keinen Sinn ergeben.</li>
+      <li>♡ Die Momente, in denen wir einfach albern sein können.</li>
+      <li>♡ Die ehrlichen Gespräche, wenn es gerade nicht leicht ist.</li>
+      <li>♡ Die kleinen Nachrichten, die einen gewöhnlichen Tag besser machen.</li>
+    </ul>
+
+    <div class="message">
+      <h3>Eine kleine Frage an dich 💭</h3>
+      <p>Welche Art von Erinnerung magst du am liebsten?</p>
+      <button class="btn secondary" onclick="memoryAnswer('fun')">Unsere lustigen Momente 😂</button>
+      <button class="btn secondary" onclick="memoryAnswer('deep')">Unsere tiefen Gespräche 💌</button>
+      <button class="btn secondary" onclick="memoryAnswer('all')">Einfach alles an uns ♡</button>
+      <p id="memoryReply" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<section id="kleinigkeiten" class="soft">
+  <div class="wrap">
+    <div class="eyebrow">Kleine Erinnerungen für dich</div>
+    <h2>Ein paar Dinge, die ich dir sagen will</h2>
+    <div class="grid">
+      <article class="card">
+        <div class="emoji">🌸</div>
+        <h3>Du darfst du selbst sein</h3>
+        <p>Du musst nicht immer so tun, als wäre alles okay.</p>
+      </article>
+      <article class="card">
+        <div class="emoji">☀️</div>
+        <h3>Deine Gefühle zählen</h3>
+        <p>Du verdienst es, dass man dir zuhört und dich ernst nimmt.</p>
+      </article>
+      <article class="card">
+        <div class="emoji">🕊️</div>
+        <h3>Du darfst dir Zeit nehmen</h3>
+        <p>Du musst nicht alles heute lösen oder verstehen.</p>
+      </article>
+      <article class="card">
+        <div class="emoji">💗</div>
+        <h3>Du bist wichtig</h3>
+        <p>Nicht nur wegen dem, was du für andere tust, sondern auch einfach als du selbst.</p>
+      </article>
+    </div>
+
+    <button class="btn" onclick="nextReminder()">Noch ein Reminder für mich ♡</button>
+    <div id="reminderBox" class="message hidden" aria-live="polite"></div>
+  </div>
+</section>
+
+<section id="spiel">
+  <div class="wrap">
+    <div class="eyebrow">Eine kleine Challenge</div>
+    <h2>Mini-Quiz über uns 🎀</h2>
+    <p>
+      Mal sehen, welche Antworten du auswählst.
+      Keine Sorge: Hier gibt es keine schlechte Note.
+    </p>
+
+    <div class="message">
+      <h3 id="quizQuestion">Was macht unsere Gespräche besonders?</h3>
+      <div id="quizAnswers">
+        <button class="btn secondary" onclick="answerQuiz(0)">Unsere Insider</button>
+        <button class="btn secondary" onclick="answerQuiz(1)">Unsere ehrlichen Momente</button>
+        <button class="btn secondary" onclick="answerQuiz(2)">Die Mischung aus allem</button>
+      </div>
+      <p id="quizResult" aria-live="polite"></p>
+      <button class="btn hidden" id="quizNext" onclick="nextQuiz()">Nächste Frage →</button>
+    </div>
+  </div>
+</section>
+
+<section id="geheimnis" class="soft">
+  <div class="wrap">
+    <div class="eyebrow">Psst ... hier ist noch etwas</div>
+    <h2>Eine geheime Nachricht 🔐</h2>
+    <p>Du musst nur das richtige Wort eingeben.</p>
+    <p class="photo-note">Tipp: Was verbindet zwei Menschen, auch wenn sie weit voneinander entfernt sind?</p>
+    <div id="secretWord">
+      <input id="secretInput" type="text" placeholder="Dein geheimes Wort ..."
+             aria-label="Geheimes Wort">
+      <button class="btn" onclick="checkSecret()">Nachricht freischalten ♡</button>
+      <p id="secretHint" aria-live="polite"></p>
+    </div>
+    <div id="secretBox" class="message hidden">
+      <div class="heart">♡</div>
+      <h3>Du hast es gefunden!</h3>
+      <p>
+        Egal wie weit zwei Menschen voneinander entfernt
+        sind, die kleinen Dinge können eine Verbindung
+        besonders machen: Zeit, Vertrauen, Ehrlichkeit,
+        gemeinsames Lachen und füreinander da sein.
+      </p>
+      <p>Und jetzt kennst du noch ein kleines Geheimnis mehr. 💗</p>
+    </div>
+  </div>
+</section>
+
+<section id="ende">
+  <div class="wrap">
+    <div class="eyebrow">Und zum Schluss ...</div>
+    <div class="heart">♥</div>
+    <h2>Ein letzter Brief von mir</h2>
+
+    <p>
+      Ich habe diese Seite gemacht, weil ich dir nicht
+      einfach nur irgendetwas schicken wollte.
+      Ich wollte mir Zeit nehmen und etwas gestalten,
+      das wirklich von mir kommt.
+    </p>
+    <p>
+      Ich weiß, dass eine Webseite keine Umarmung ersetzen
+      kann und dass ein schöner Text nicht jeden schweren
+      Tag verschwinden lässt. Aber manchmal können kleine
+      Dinge zeigen, dass sich jemand Gedanken gemacht hat.
+    </p>
+    <p>
+      Ich freue mich auf die Gespräche, auf neue Insider,
+      auf die Momente, in denen wir zusammen lachen,
+      und auf all die Erinnerungen, die noch entstehen.
+    </p>
+    <p>
+      Danke, dass du ein Teil meiner Geschichte bist.
+      Ich hoffe, diese kleine Überraschung hat dir
+      wenigstens ein Lächeln geschenkt.
+    </p>
+    <h2>Du bist mir wichtig. ♡</h2>
+    <p>Und diese kleine Welt? Die habe ich extra für dich gebaut.</p>
+
+    <button class="btn" onclick="sendHearts()">Ein paar Herzen für dich 💗</button>
+    <p id="heartReply" aria-live="polite"></p>
+    <button class="btn secondary" onclick="goTo('start')">Nochmal von vorne ↺</button>
+  </div>
+</section>
+
+<footer>
+  <div class="heart" style="font-size:32px">♡</div>
+  Eine kleine Welt, mit Liebe gemacht.<br>
+  <span>Für einen besonderen Menschen.</span>
+</footer>
+
+<script>
+const letters = {
+  miss: {
+    title: "Wenn du mich vermisst 🌍",
+    text: `Ich weiß, dass Entfernung manchmal richtig nerven kann.
+Manchmal wünscht man sich einfach, der andere wäre gerade da.
+Ich kann nicht immer neben dir sitzen, aber ich kann mir Zeit
+für dich nehmen, dir zuhören und mit dir lachen.
+
+Du musst aus diesem Moment nichts Besonderes machen.
+Ich wollte dir nur einen kleinen Reminder dalassen:
+Du bist mir wichtig, auch wenn wir gerade nicht am selben Ort sind. ♡`
+  },
+  sad: {
+    title: "Wenn dein Tag schwer war 🌧️",
+    text: `Hey, du. Du musst nicht sofort wieder gut drauf sein.
+Du musst nicht jedes Gefühl erklären können und auch nicht
+so tun, als wäre alles in Ordnung.
+
+Wenn du reden möchtest, möchte ich dir zuhören.
+Wenn du erst einmal Ruhe brauchst, ist das auch okay.
+Du verdienst Geduld und Freundlichkeit, besonders an Tagen,
+an denen dir selbst beides schwerfällt.
+
+Ein Schritt nach dem anderen. Du musst nicht alles auf einmal schaffen. ♡`
+  },
+  night: {
+    title: "Wenn du nicht schlafen kannst 🌙",
+    text: `Hey, es ist okay, manche Dinge bis morgen liegen zu lassen.
+Du musst nicht jedes Problem mitten in der Nacht lösen.
+
+Mach es dir gemütlich, atme einmal durch und gib dir selbst
+die Erlaubnis, eine Pause zu machen.
+Ich hoffe, morgen wartet etwas Schönes auf dich.
+
+Und falls du diesen Brief nachts liest: Ich hoffe,
+er macht deinen Abend ein kleines bisschen wärmer. ♡`
+  },
+  smile: {
+    title: "Wenn du einen Grund zum Lächeln brauchst 🧸",
+    text: `Offizielle Erinnerung: Du darfst albern sein.
+Du darfst über dumme Witze lachen, Unsinn erzählen
+und aus einer völlig normalen Unterhaltung etwas
+machen, worüber man später noch lacht.
+
+Nicht jeder Moment muss tiefgründig oder perfekt sein.
+Manchmal reicht es, gemeinsam Blödsinn zu machen.
+
+Falls du jetzt grinst: Mission erfolgreich. 😂♡`
+  },
+  worth: {
+    title: "Wenn du an dir zweifelst 🫶",
+    text: `Du musst nicht perfekt sein, um wertvoll zu sein.
+Du darfst Fehler machen, lernen, wachsen und manchmal
+nicht wissen, was du eigentlich gerade brauchst.
+
+Bitte bewerte dich nicht nur nach einem schwierigen Tag
+oder nach einem Moment, in dem du an dir zweifelst.
+Du bist so viel mehr als dieser eine Moment.
+
+Du verdienst Freundlichkeit, Respekt und Menschen,
+bei denen du dich nicht verstellen musst. ♡`
+  },
+  love: {
+    title: "Was du mir bedeutest ❤️",
+    text: `Ich schätze es, dich immer besser kennenzulernen.
+Ich mag unsere Gespräche, unsere kleinen Momente
+und die Dinge, über die wahrscheinlich nur wir lachen.
+
+Ich möchte dir nicht nur schöne Worte sagen,
+sondern dir auch durch Ehrlichkeit, Geduld und Zuhören
+zeigen, dass du mir wichtig bist.
+
+Du musst nicht jeden Tag besonders sein.
+Es reicht, dass du du bist. ♡`
+  },
+  funny: {
+    title: "Wenn ich mal wieder nervig bin 😂",
+    text: `Hallo, hier spricht die offizielle Beschwerdestelle.
+Deine Beschwerde wurde empfangen und sorgfältig geprüft.
+
+Ergebnis: Du darfst dich beschweren.
+Die Bearbeitungszeit beträgt ungefähr drei bis fünf
+Geschichten, zwei dumme Witze und eine Diskussion,
+bei der keiner von uns aufgeben will.
+
+Danke für deine Geduld mit diesem Exemplar.
+Eine Rückerstattung ist leider ausgeschlossen. 😂♡`
+  },
+  random: {
+    title: "Einfach so, weil du es verdienst ✨",
+    text: `Es gibt keinen besonderen Anlass.
+Keinen Geburtstag, keinen Jahrestag und keinen Grund,
+warum heute unbedingt etwas Großes passieren muss.
+
+Ich wollte dir einfach etwas dalassen, das dich vielleicht
+lächeln lässt, wenn du es entdeckst.
+
+Manchmal sind es gerade die kleinen, unerwarteten Dinge,
+die einen Tag ein wenig schöner machen. ♡`
+  }
+};
+
+function openWelcome() {
+  document.getElementById("welcome").classList.remove("hidden");
+  goTo("welcome");
+}
+
+function goTo(id) {
+  document.getElementById(id).scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
+
+function showLetter(key) {
+  document.getElementById("letterTitle").textContent = letters[key].title;
+  document.getElementById("letterText").textContent = letters[key].text;
+  document.getElementById("letterBox").classList.remove("hidden");
+  goTo("letterBox");
+}
+function hideLetter() {
+  document.getElementById("letterBox").classList.add("hidden");
+}
+
+function memoryAnswer(kind) {
+  const replies = {
+    fun: "Dann müssen wir wohl noch mehr Unsinn sammeln. 😂♡",
+    deep: "Die ehrlichen Gespräche sind etwas Besonderes. Danke, dass wir sie teilen können. 💌",
+    all: "Das ist die beste Antwort. Die kleinen und großen Momente gehören alle dazu. ♡"
+  };
+  document.getElementById("memoryReply").textContent = replies[kind];
+}
+
+const reminders = [
+  "Du musst nicht immer für alle stark sein. Auch du darfst Unterstützung annehmen. ♡",
+  "Du darfst Fehler machen und trotzdem stolz darauf sein, dass du es versucht hast.",
+  "Deine Gefühle verdienen es, ernst genommen zu werden.",
+  "Du darfst dir Zeit nehmen, ohne dich dafür rechtfertigen zu müssen.",
+  "Vergiss nicht, dir selbst dieselbe Freundlichkeit zu geben, die du anderen schenkst."
+];
+let reminderIndex = 0;
+
+function nextReminder() {
+  const box = document.getElementById("reminderBox");
+  box.textContent = reminders[reminderIndex % reminders.length];
+  reminderIndex++;
+  box.classList.remove("hidden");
+}
+
+const questions = [
+  {
+    q: "Was macht unsere Gespräche besonders?",
+    a: ["Unsere Insider", "Unsere ehrlichen Momente", "Die Mischung aus allem"],
+    good: 2,
+    note: "Die Mischung aus all den kleinen Dingen macht es besonders. ♡"
+  },
+  {
+    q: "Was macht eine Erinnerung wertvoll?",
+    a: ["Wie teuer sie war", "Wie perfekt sie aussah", "Wie sie sich anfühlt"],
+    good: 2,
+    note: "Genau! Es geht um das Gefühl, nicht um Perfektion. 💗"
+  },
+  {
+    q: "Was darfst du an einem schweren Tag tun?",
+    a: ["Dir eine Pause gönnen", "Perfekt sein müssen", "Alles alleine schaffen"],
+    good: 0,
+    note: "Richtig. Du darfst dir Zeit nehmen und Unterstützung annehmen. ♡"
+  },
+  {
+    q: "Was ist das Wichtigste an diesem Geschenk?",
+    a: ["Der teuerste Effekt", "Dass es perfekt ist", "Dass es mit Gedanken gemacht wurde"],
+    good: 2,
+    note: "Ganz genau. Es geht darum, dass ich mir Zeit für dich genommen habe. ❤️"
+  }
+];
+let quizIndex = 0;
+
+function answerQuiz(choice) {
+  const question = questions[quizIndex];
+  const result = document.getElementById("quizResult");
+  result.textContent = choice === question.good
+    ? "Richtige Antwort! " + question.note
+    : "Gute Antwort! " + question.note;
+
+  document.querySelectorAll("#quizAnswers button").forEach(button => {
+    button.disabled = true;
+    button.style.opacity = ".65";
+  });
+  document.getElementById("quizNext").classList.remove("hidden");
+}
+
+function nextQuiz() {
+  quizIndex++;
+  if (quizIndex >= questions.length) {
+    document.getElementById("quizQuestion").textContent = "Du hast es geschafft! 🎉";
+    document.getElementById("quizAnswers").innerHTML =
+      "<p>Danke fürs Mitspielen. Hier gibt es nur Gewinner. ♡</p>";
+    document.getElementById("quizResult").textContent =
+      "Ich hoffe, du hattest ein kleines bisschen Spaß. 💗";
+    document.getElementById("quizNext").classList.add("hidden");
+    return;
+  }
+
+  const question = questions[quizIndex];
+  document.getElementById("quizQuestion").textContent = question.q;
+  document.getElementById("quizAnswers").innerHTML = question.a.map(
+    (answer, i) =>
+      `<button class="btn secondary" onclick="answerQuiz(${i})">${answer}</button>`
+  ).join("");
+  document.getElementById("quizResult").textContent = "";
+  document.getElementById("quizNext").classList.add("hidden");
+}
+
+function checkSecret() {
+  const value = document.getElementById("secretInput").value
+    .trim().toLocaleLowerCase("de");
+  if (value === "vertrauen") {
+    document.getElementById("secretBox").classList.remove("hidden");
+    document.getElementById("secretHint").textContent = "";
+    goTo("secretBox");
+  } else {
+    document.getElementById("secretHint").textContent =
+      "Noch nicht ganz! Tipp: Es ist wichtig, wenn man weit voneinander entfernt ist. ♡";
+  }
+}
+
+function sendHearts() {
+  const container = document.getElementById("floatingHearts");
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (reducedMotion) {
+    document.getElementById("heartReply").textContent =
+      "Ganz viele Herzen für dich! 💗💗💗";
+    return;
+  }
+
+  for (let i = 0; i < 24; i++) {
+    const heart = document.createElement("span");
+    heart.className = "floating-heart";
+    heart.textContent = ["♥", "♡", "💗"][i % 3];
+    heart.style.left = Math.random() * 100 + "%";
+    heart.style.fontSize = (16 + Math.random() * 23) + "px";
+    heart.style.animationDelay = Math.random() * 1.5 + "s";
+    container.appendChild(heart);
+    heart.addEventListener("animationend", () => heart.remove());
+  }
+
+  document.getElementById("heartReply").textContent =
+    "Ein ganzer Himmel voller Herzen. Nur für dich. ♡";
+}
+
+function createStars() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const container = document.getElementById("floatingHearts");
+  for (let i = 0; i < 10; i++) {
+    const heart = document.createElement("span");
+    heart.className = "floating-heart";
+    heart.textContent = "♡";
+    heart.style.left = Math.random() * 100 + "%";
+    heart.style.fontSize = "12px";
+    heart.style.opacity = ".3";
+    heart.style.animationDuration = (7 + Math.random() * 7) + "s";
+    heart.style.animationDelay = (Math.random() * 8) + "s";
+    container.appendChild(heart);
+    heart.addEventListener("animationend", () => heart.remove());
+  }
+}
+createStars();
+</script>
+</body>
+</html>
